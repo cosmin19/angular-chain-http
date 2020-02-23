@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of, throwError, concat } from 'rxjs';
+import { of } from 'rxjs';
 import { delay, map } from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
 })
-export class MyServiceService {
+export class MyCustomService {
 
     getMessageAfterSeconds(afterSeconds: number, throwError: boolean = false) {
         const message: string = `Hello, after ${afterSeconds} seconds`;

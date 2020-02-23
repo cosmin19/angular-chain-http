@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MyServiceService } from './my-service.service';
+import { MyCustomService } from './my-custom.service';
 import { map, mergeMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -10,10 +10,10 @@ import { of } from 'rxjs';
 })
 export class AppComponent {
 
-    constructor(private _myService: MyServiceService) { }
+    constructor(private _myService: MyCustomService) { }
 
     ngOnInit(): void {
-        let srv = this._myService;
+        let srv = this._myService; // MyCustomService
 
         // CASE 1: ITERATIVE
         srv.getMessageAfterSeconds(3).subscribe((message) => console.log(message));
@@ -38,8 +38,8 @@ export class AppComponent {
                 , map((message) => console.log(message))
 
                 // Trigger third calland handle data
-                , mergeMap(() => srv.getMessageAfterSeconds(1)),
-                map((message) => console.log(message))
+                , mergeMap(() => srv.getMessageAfterSeconds(1))
+                , map((message) => console.log(message))
             ).subscribe(() => console.log('Chain executed successfully. Good job :)'));
 
         // OUTPUT:
@@ -57,12 +57,12 @@ export class AppComponent {
                 map((message) => console.log(message))
 
                 // Trigger second call and handle data
-                , mergeMap(() => srv.getMessageAfterSeconds(2, true))
+                , mergeMap(() => srv.getMessageAfterSeconds(2, true)) // true = throw an exception
                 , map((message) => console.log(message))
 
                 // Trigger third calland handle data
-                , mergeMap(() => srv.getMessageAfterSeconds(1)),
-                map((message) => console.log(message))
+                , mergeMap(() => srv.getMessageAfterSeconds(1))
+                , map((message) => console.log(message))
             ).subscribe(() => console.log('Chain executed successfully. Good job :)'));
 
         // OUTPUT:
@@ -82,8 +82,8 @@ export class AppComponent {
                 , map((message) => console.log(message))
 
                 // Trigger third calland handle data
-                , mergeMap(() => srv.getMessageAfterSeconds(1)),
-                map((message) => console.log(message))
+                , mergeMap(() => srv.getMessageAfterSeconds(1))
+                , map((message) => console.log(message))
             ).subscribe(() => console.log('Chain executed successfully. Good job :)'));
 
         // OUTPUT:
